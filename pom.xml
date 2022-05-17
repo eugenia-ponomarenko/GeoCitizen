@@ -65,6 +65,13 @@
     </properties>
 
     <dependencies>
+	<!-- Sonarqube -->
+        <dependency>
+	    <groupId>org.sonarsource.scanner.maven</groupId>
+	    <artifactId>sonar-maven-plugin</artifactId>
+	    <version>3.9.1.2184</version>
+	</dependency>
+	    
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -495,6 +502,36 @@
     <build>
         <finalName>${project.fileName}</finalName>
         <plugins>
+		<plugin>
+		    <groupId>org.jacoco</groupId>
+		    <artifactId>jacoco-maven-plugin</artifactId>
+		    <version>0.8.7</version>
+		    <executions>
+			<execution>
+			    <id>prepare-agent</id>
+					<goals>
+					    <goal>prepare-agent</goal>
+					</goals>
+				    </execution>
+				    <execution>
+					<id>generate-report</id>
+					<phase>verify</phase>
+					<goals>
+					    <goal>report</goal>
+					</goals>
+				    </execution>
+				</executions>
+		</plugin>
+		
+		<plugin>
+		    <groupId>org.apache.maven.plugins</groupId>
+		    <artifactId>maven-surefire-plugin</artifactId>
+		    <version>3.0.0-M6</version>
+			<configuration>
+			    <testFailureIgnore>true</testFailureIgnore>
+			</configuration>
+		</plugin>
+		
 	        <plugin>
 		        <groupId>org.apache.maven.plugins</groupId>
 		        <artifactId>maven-war-plugin</artifactId>
